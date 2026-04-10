@@ -18,6 +18,12 @@ public class CustomerServiceImplementation implements CustomerService{
     }
 
     @Override
+    public String createCustomer(Customer customer) {
+        Customer createdCustomer = customerRepository.save(customer);
+        return createdCustomer.toString();
+    }
+
+    @Override
     public List<Customer> getAllCustomers() {
         return customerRepository.findAll();
     }
