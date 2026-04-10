@@ -5,7 +5,7 @@ import com.bank.app.model.Customer;
 import java.util.List;
 
 public interface CustomerService {
-//    void createCustomer(Customer customer);
+    String createCustomer(Customer customer);
     public List<Customer> getAllCustomers();
 //    public Long getCustomerById();
 
