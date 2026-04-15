@@ -1,7 +1,9 @@
 package com.bank.app.model;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
 
+@JsonPropertyOrder({"customerId", "firstName", "lastName", "phoneNumber", "email"})
 @Entity
 public class Customer {
     @Id
