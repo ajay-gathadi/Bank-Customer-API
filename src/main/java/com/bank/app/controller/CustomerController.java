@@ -4,6 +4,7 @@ import com.bank.app.model.Customer;
 import com.bank.app.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,15 +23,20 @@ public class CustomerController {
     }
 
     @PostMapping("/api/customers")
-    public String createCustomer(@RequestBody Customer customer){
+    public ResponseEntity<String> createCustomer(@RequestBody Customer customer){
         String createdCustomer = customerService.createCustomer(customer);
-        return createdCustomer;
+        return new ResponseEntity<>("Customer created successfully.", HttpStatus.CREATED);
     }
 
     @GetMapping("/api/customers")
-    public List<Customer> getAllCustomers(){
+    public ResponseEntity<List<Customer>> getAllCustomers(){
         List<Customer> customerList = customerService.getAllCustomers();
-        return customerList;
+
+        if(customerList.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(customerList, HttpStatus.OK);
     }
 
 }
