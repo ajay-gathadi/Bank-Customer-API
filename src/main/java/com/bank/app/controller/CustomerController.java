@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,12 +25,18 @@ public class CustomerController {
         return new ResponseEntity<>("Customer created successfully.", HttpStatus.CREATED);
     }
 
+    @GetMapping("/api/customers/{customerId}")
+    public ResponseEntity<Customer> getCustomerById(@PathVariable("customerId") long customerId){
+        Customer customerwithID = customerService.getCustomerById(customerId);
+        return new ResponseEntity<>(customerwithID, HttpStatus.OK);
+    }
+
     @GetMapping("/api/customers")
-    public ResponseEntity<List<Customer>> getAllCustomers(){
+    public ResponseEntity<?> getAllCustomers(){
         List<Customer> customerList = customerService.getAllCustomers();
 
         if(customerList.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>("There is no data yet", HttpStatus.NO_CONTENT);
         }
 
         return new ResponseEntity<>(customerList, HttpStatus.OK);
