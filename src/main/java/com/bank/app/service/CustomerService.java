@@ -9,5 +9,6 @@ public interface CustomerService {
     public List<Customer> getAllCustomers();
     Customer getCustomerById(Long customerId);
     Customer updateCustomer(Long customerId, Customer customer);
+    Customer deleteCustomer(Long customerId);
 
 }
