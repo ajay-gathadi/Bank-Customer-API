@@ -8,5 +8,6 @@ public interface CustomerService {
     String createCustomer(Customer customer);
     public List<Customer> getAllCustomers();
     Customer getCustomerById(Long customerId);
+    Customer updateCustomer(Long customerId, Customer customer);
 
 }
