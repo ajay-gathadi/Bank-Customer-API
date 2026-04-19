@@ -42,5 +42,14 @@ public class CustomerServiceImplementation implements CustomerService{
         }
     }
 
+    @Override
+    public Customer updateCustomer(Long customerId, Customer customer){
+        Customer updateCustomer = getCustomerById(customerId);
+        updateCustomer.setFirstName(customer.getFirstName());
+        updateCustomer.setLastName(customer.getLastName());
+        customerRepository.save(updateCustomer);
+        return updateCustomer;
+    }
+
 
 }
