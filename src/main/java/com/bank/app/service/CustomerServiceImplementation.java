@@ -51,5 +51,12 @@ public class CustomerServiceImplementation implements CustomerService{
         return updateCustomer;
     }
 
+    @Override
+    public Customer deleteCustomer(Long customerId) {
+        Customer deleteCustomer = getCustomerById(customerId);
+        customerRepository.delete(deleteCustomer);
+        return deleteCustomer;
+    }
+
 
 }
