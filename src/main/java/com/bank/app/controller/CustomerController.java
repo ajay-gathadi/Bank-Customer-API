@@ -50,4 +50,10 @@ public class CustomerController {
         return new ResponseEntity<>(customerList, HttpStatus.OK);
     }
 
+    @DeleteMapping("/api/customers/{customerId}")
+    public ResponseEntity<Customer> deleteCustomer(@PathVariable Long customerId){
+        Customer deleteCustomer = customerService.deleteCustomer(customerId);
+        return new ResponseEntity<>(deleteCustomer, HttpStatus.OK);
+    }
+
 }
