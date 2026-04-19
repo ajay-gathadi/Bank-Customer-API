@@ -2,6 +2,7 @@ package com.bank.app.controller;
 
 import com.bank.app.model.Customer;
 import com.bank.app.service.CustomerService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -28,6 +29,13 @@ public class CustomerController {
     @GetMapping("/api/customers/{customerId}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable("customerId") long customerId){
         Customer customerwithID = customerService.getCustomerById(customerId);
+        return new ResponseEntity<>(customerwithID, HttpStatus.OK);
+    }
+
+    @PutMapping("/api/customers/{customerId}")
+    public ResponseEntity<Customer> updateCustomer(@PathVariable("customerId") long customerId,
+                                                   @RequestBody Customer customer){
+        Customer customerwithID = customerService.updateCustomer(customerId, customer);
         return new ResponseEntity<>(customerwithID, HttpStatus.OK);
     }
 
