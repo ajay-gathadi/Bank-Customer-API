@@ -3,6 +3,7 @@ package com.bank.app.service;
 import com.bank.app.model.Customer;
 import com.bank.app.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -22,8 +23,12 @@ public class CustomerServiceImplementation implements CustomerService{
 
     @Override
     public String createCustomer(Customer customer) {
-        Customer createdCustomer = customerRepository.save(customer);
-        return createdCustomer.toString();
+        try{
+            Customer createCustomer = customerRepository.save(customer);
+            return createCustomer.toString();
+        } catch (DataIntegrityViolationException e){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Customer with email: " + customer.getEmail() + " already exists");
+        }
     }
 
     @Override
